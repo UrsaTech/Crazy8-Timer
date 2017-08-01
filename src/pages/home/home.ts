@@ -2,20 +2,42 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Timer } from '../../providers/timer';
 
+function deepClone(obj){
+    let clone = {};
+    Object.keys(obj).forEach(key => {
+        if(typeof obj[key] === 'object'){
+            clone[key] = deepClone(obj[key]);
+        }else{
+            clone[key] = obj[key];
+        }
+    });
+    return clone;
+}
+
 export const DEFAULTS = {
   duration: 60,
   settings: {
     minutes: {
-      val: 1,
-      isValid: () => Number.isInteger(this.val) && this.val >= 0
+      val: '1',
+      isValid: true,
+      // NOTE: Using ES6 arrow sytax will break this function!
+      validate: function() {
+          return this.isValid = Number.isInteger(+this.val) && +this.val >= 0;
+      }
     },
     seconds: {
-      val: 0,
-      isValid: () => Number.isInteger(this.val) && this.val >= 0
+      val: '0',
+      isValid: true,
+      validate: function () {
+          return this.isValid = Number.isInteger(+this.val) && +this.val >= 0;
+      }
     }, 
     frames: {
-      val: 8,
-      isValid: () => Number.isInteger(val) && val > 0
+      val: '8',
+      isValid: true,
+      validate: function () {
+            return this.isValid = Number.isInteger(+this.val) && +this.val > 0;
+      }
     }
   }
 };
@@ -34,7 +56,7 @@ export class HomePage {
 
   secondsElapsed:number = 0;
   crazyDuration:number = DEFAULTS.duration;
-  settings:any = DEFAULTS.settings;
+  settings:any = deepClone(DEFAULTS.settings);
   status:number = STATUSES.SETTING;
 
   currentFrame:number = 1;
@@ -48,7 +70,7 @@ export class HomePage {
 
   timerIsDone(){
       this.currentFrame += 1;
-      if(this.currentFrame == this.settings.frames.val+1){
+      if(this.currentFrame == +this.settings.frames.val+1){
           this.status = STATUSES.SETTING
       }else{
           this.timer.start(this.crazyDuration)
@@ -57,19 +79,18 @@ export class HomePage {
 
   validateSettings(){
       return Object.keys(this.settings).every(setting => {
-          return this.settings[setting].isValid();
+          return this.settings[setting].validate();
       });
   }
 
   startTimer(){
-      this.crazyDuration = this.settings.minutes.val*60 + this.settings.seconds.val;
+      this.crazyDuration = +this.settings.minutes.val*60 + +this.settings.seconds.val;
       this.status = STATUSES.IN_PROGRESS;
       this.timer.start(this.crazyDuration);
   }
 
   startClick(){
       //TODO 3b: convert duration from minutes and seconds to only seconds
-      this.validateSettings();
       if(this.validateSettings()){
           this.currentFrame = 1;
           this.startTimer();
@@ -77,14 +98,14 @@ export class HomePage {
   }
 
   stopClick(){
-      this.timer.stop()
-      this.status = STATUSES.SETTING
+      this.timer.stop();
+      this.status = STATUSES.SETTING;
   }
 
   resetClick(){
       this.secondsElapsed = 0;
       this.crazyDuration = DEFAULTS.duration;
-      this.settings.frames.val = DEFAULTS.settings.frames.val;
+      this.settings = deepClone(DEFAULTS.settings);
       this.status = STATUSES.SETTING;
   }
 
