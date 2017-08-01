@@ -10,12 +10,16 @@
   <ion-content *ngIf="status==STATUSES.SETTING">
       <!-- TODO 3a: set duration as minutes and seconds-->
       <ion-item>
-        <ion-label floating>Duration (Seconds)</ion-label>
-        <ion-input type="number" value="" [(ngModel)]="crazyDuration"></ion-input>
+        <ion-label floating>Minutes</ion-label>
+        <ion-input type="number" value="" [(ngModel)]="settings.minutes.val"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label floating>Seconds</ion-label>
+        <ion-input type="number" value="" [(ngModel)]="settings.seconds.val"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label floating>Number of Frames</ion-label>
-        <ion-input type="number" value="" [(ngModel)]="numberOfFrames"></ion-input>
+        <ion-input type="number" value="" [(ngModel)]="settings.frames.val"></ion-input>
       </ion-item>
       <button ion-button (click)="startClick()">Start Crazy 8-ing</button>
       <button ion-button (click)="resetClick()" outline>Reset</button>
