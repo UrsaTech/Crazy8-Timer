@@ -38,7 +38,7 @@ export class Timer {
         if (this.remainingSeconds === 0) {
           this.stop();
         }
-      })
+      });
   }
 
   stop(){
@@ -55,7 +55,9 @@ export class Timer {
   updateStringy(){
       // This function prints a nicely readable form of the time remaining
       // TODO 2: print minutes and seconds remaining
-      this.stringyTimeRemaining = this.remainingSeconds + " seconds";
+      let seconds = this.remainingSeconds % 60;
+      let minutes = (this.remainingSeconds - seconds) / 60;
+      this.stringyTimeRemaining = `${minutes} minutes ${seconds} seconds`;
   }
 
 
