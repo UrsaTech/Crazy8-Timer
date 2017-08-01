@@ -33,6 +33,12 @@ export class Timer {
       // regular interval to update the displayed time.
 
       //HINT: https://forum.ionicframework.com/t/ionic2-timer/73960/4
+      this.obsTimer = Observable.interval(1000).subscribe(() => {
+        this.setRemainingSeconds(this.remainingSeconds - 1);
+        if (this.remainingSeconds === 0) {
+          this.stop();
+        }
+      })
   }
 
   stop(){
@@ -42,14 +48,14 @@ export class Timer {
   }
 
   setRemainingSeconds(remaining:number){
-      this.remainingSeconds = remaining
+      this.remainingSeconds = remaining;
       this.updateStringy();
   }
 
   updateStringy(){
       // This function prints a nicely readable form of the time remaining
       // TODO 2: print minutes and seconds remaining
-      this.stringyTimeRemaining = this.remainingSeconds +" seconds"
+      this.stringyTimeRemaining = this.remainingSeconds + " seconds";
   }
 
 
