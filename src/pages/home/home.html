@@ -10,6 +10,10 @@
   <ion-content *ngIf="status==STATUSES.SETTING">
       <!-- TODO 3a: set duration as minutes and seconds-->
       <ion-item>
+        <ion-label floating>Duration (Minutes)</ion-label>
+        <ion-input type="number" value="" [(ngModel)]="crazyDuration_min"></ion-input>
+      </ion-item>
+      <ion-item>
         <ion-label floating>Duration (Seconds)</ion-label>
         <ion-input type="number" value="" [(ngModel)]="crazyDuration"></ion-input>
       </ion-item>

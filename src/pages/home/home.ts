@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Timer } from '../../providers/timer';
 
-export const DEFAULTS = {duration:4, numberOfFrames:8}
+export const DEFAULTS = {duration:4, duration_min:1, numberOfFrames:8}
 export enum STATUSES{
     SETTING = 1,
     IN_PROGRESS = 2
@@ -17,6 +17,7 @@ export class HomePage {
 
   secondsElapsed:number = 0;
   crazyDuration:number = DEFAULTS.duration;
+  crazyDuration_min:number = DEFAULTS.duration_min;
   numberOfFrames:number = DEFAULTS.numberOfFrames;
   status:number = STATUSES.SETTING;
 
