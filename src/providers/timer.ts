@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit} from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { Observable } from 'rxjs/Rx';
+import { Observable, Subscription } from 'rxjs/Rx';
 
 
 @Injectable()
@@ -12,15 +12,37 @@ export class Timer {
   remainingSeconds:number;
   obsTimer:any;
   startTime:number;
+  private subscription: Subscription;
   parent:any
-  constructor() {
 
+  test_string = "this is a string";
+
+  ticks=0;
+  destroy_ticks() {
+    this.subscription.unsubscribe();
   }
+  start_ticks(duration){
+    let timer = Observable.timer(2000,1000);
+    this.subscription = timer.subscribe(t => this.tickerFunc(t,duration));
+  }
+  tickerFunc(tick, duration){
+    console.log(this);
+    console.log(duration);
+    this.ticks = tick
+    if(tick == duration) {
+      console.log("stop");
+      this.destroy_ticks();
+    }
+  }
+
+  constructor() {
+  }
+
+
 
   registerParent(parent:any){
     this.parent = parent;
   }
-
 
 
   start(duration:number){
@@ -33,6 +55,11 @@ export class Timer {
       // regular interval to update the displayed time.
 
       //HINT: https://forum.ionicframework.com/t/ionic2-timer/73960/4
+      
+      //starting ticks
+      console.log(duration)
+      this.start_ticks(duration)
+
   }
 
   stop(){

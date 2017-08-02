@@ -7,6 +7,7 @@
 </ion-header>
 
 <ion-content padding>
+  <button ion-button (click)="setIt()" outline>Set It Up</button>
   <ion-content *ngIf="status==STATUSES.SETTING">
       <!-- TODO 3a: set duration as minutes and seconds-->
       <ion-item>
@@ -17,13 +18,17 @@
         <ion-label floating>Number of Frames</ion-label>
         <ion-input type="number" value="" [(ngModel)]="numberOfFrames"></ion-input>
       </ion-item>
+
       <button ion-button (click)="startClick()">Start Crazy 8-ing</button>
       <button ion-button (click)="resetClick()" outline>Reset</button>
+
+
   </ion-content>
   <ion-content *ngIf="status==STATUSES.IN_PROGRESS">
       {{timer.stringyTimeRemaining}} {{(currentFrame == numberOfFrames)?"left":"until next frame"}}<br />
       Frame {{currentFrame}} of {{numberOfFrames}}<br />
       <button ion-button (click)="stopClick()" outline>Stop</button>
+      Timer {{timer.ticks}}
   </ion-content>
 
 

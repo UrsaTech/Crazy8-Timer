@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Timer } from '../../providers/timer';
 
@@ -21,6 +21,7 @@ export class HomePage {
   status:number = STATUSES.SETTING;
 
   currentFrame:number = 1;
+
 
   constructor(
             public navCtrl: NavController,
@@ -45,11 +46,18 @@ export class HomePage {
 
       this.status = STATUSES.IN_PROGRESS
       this.timer.start(this.crazyDuration)
+      console.log(this.timer.test_string)
+      //testing = this.timer.test_string
   }
 
   stopClick(){
       this.timer.stop()
       this.status = STATUSES.SETTING
+  }
+
+  setIt() {
+    console.log("set it up")
+    this.status = STATUSES.SETTING
   }
 
   resetClick(){
