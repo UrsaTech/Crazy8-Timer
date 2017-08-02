@@ -28,7 +28,7 @@ export class HomePage {
             public timer: Timer
             ) {
       this.timer.registerParent(this);
-      this.startClick()
+      //this.startClick()
 
   }
 
@@ -65,5 +65,4 @@ export class HomePage {
       this.numberOfFrames = DEFAULTS.numberOfFrames;
       this.status = STATUSES.SETTING;
   }
-
 }

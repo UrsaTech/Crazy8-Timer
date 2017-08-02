@@ -24,6 +24,17 @@ export class Timer {
     this.parent = parent;
   }
 
+  setRemainingSeconds(remaining:number){
+      this.remainingSeconds = remaining
+      this.updateStringy();
+  }
+
+  updateStringy(){
+      // This function prints a nicely readable form of the time remaining
+      // TODO 2: print minutes and seconds remaining
+      this.stringyTimeRemaining = this.remainingSeconds +" seconds"
+  }
+
   start_ticks(duration){
     let timer = Observable.timer(2000,1000);
     this.subscription = timer.subscribe(t => this.tickerFunc(t,duration));
@@ -31,11 +42,11 @@ export class Timer {
   tickerFunc(tick, duration){
     console.log(this);
     this.stringyTimeRemaining = tick
+    this.setRemainingSeconds(tick)
     if(tick == duration) {
       this.stop();
     }
   }
-
 
   start(duration:number){
       /*
@@ -61,16 +72,6 @@ export class Timer {
       this.parent.timerIsDone();
   }
 
-  setRemainingSeconds(remaining:number){
-      this.remainingSeconds = remaining
-      this.updateStringy();
-  }
-
-  updateStringy(){
-      // This function prints a nicely readable form of the time remaining
-      // TODO 2: print minutes and seconds remaining
-      this.stringyTimeRemaining = this.remainingSeconds +" seconds"
-  }
 
 
 }
