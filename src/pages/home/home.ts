@@ -47,7 +47,6 @@ export class HomePage {
       this.status = STATUSES.IN_PROGRESS
       this.timer.start(this.crazyDuration)
       console.log(this.timer.test_string)
-      //testing = this.timer.test_string
   }
 
   stopClick(){

@@ -1,4 +1,4 @@
-import { Injectable, OnInit} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable, Subscription } from 'rxjs/Rx';
@@ -17,31 +17,23 @@ export class Timer {
 
   test_string = "this is a string";
 
-  ticks=0;
-  destroy_ticks() {
-    this.subscription.unsubscribe();
+  constructor() {
   }
+
+  registerParent(parent:any){
+    this.parent = parent;
+  }
+
   start_ticks(duration){
     let timer = Observable.timer(2000,1000);
     this.subscription = timer.subscribe(t => this.tickerFunc(t,duration));
   }
   tickerFunc(tick, duration){
     console.log(this);
-    console.log(duration);
-    this.ticks = tick
+    this.stringyTimeRemaining = tick
     if(tick == duration) {
-      console.log("stop");
-      this.destroy_ticks();
+      this.stop();
     }
-  }
-
-  constructor() {
-  }
-
-
-
-  registerParent(parent:any){
-    this.parent = parent;
   }
 
 
@@ -64,7 +56,8 @@ export class Timer {
 
   stop(){
       //OPTIONAL: https://ionicframework.com/docs/native/media/ play a sound
-      this.obsTimer.unsubscribe();
+      console.log("stop called")
+      this.subscription.unsubscribe();
       this.parent.timerIsDone();
   }
 
