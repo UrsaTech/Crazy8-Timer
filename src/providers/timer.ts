@@ -32,7 +32,6 @@ export class Timer {
   updateStringy(){
       // This function prints a nicely readable form of the time remaining
       // TODO 2: print minutes and seconds remaining
-      console.log(this.remainingSeconds)
       var date = new Date(null);
       date.setSeconds(this.remainingSeconds); // specify value for SECONDS here
       var result = date.toISOString().substr(11, 8);
@@ -41,11 +40,19 @@ export class Timer {
       if (res[0] != "00") {
         final_time += res[0] + "hours "
       }
-      if (res[1]) {
-        final_time += res[1] + " minutes "
+      if (res[1] != "00") {
+        if (res[1] == "01") { 
+          final_time += res[1] + " minute "
+        } else {
+          final_time += res[1] + " minutes "
+        }
       }
-      if(res[2]) {
-        final_time += res[2] + " seconds"
+      if(res[2] != "00") {
+        if (res[2] == "01") { 
+          final_time += res[2] + " second"
+        } else {
+          final_time += res[2] + " seconds"
+        }
       }
       console.log(final_time)
       //this.stringyTimeRemaining = this.remainingSeconds +" seconds"
