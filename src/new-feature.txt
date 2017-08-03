@@ -1,0 +1,7 @@
+New Feature. Implemented.
+
+When people create sketches, it can be very sudden that they don't have time left.
+I think that it would be convenient to hear several warning signals and see red color before timeout.
+For example, during last 5 seconds users should here 5 warning signals every second.
+The color of text should be changed to red.
+Also users can adjust the moment when they should be warned.

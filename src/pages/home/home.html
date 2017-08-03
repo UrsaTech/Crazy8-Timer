@@ -7,24 +7,36 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-content *ngIf="status==STATUSES.SETTING">
+  <ion-content *ngIf="status==STATUSES.SETTING" scroll="false">
       <!-- TODO 3a: set duration as minutes and seconds-->
-      <ion-item>
-        <ion-label floating>Duration (Seconds)</ion-label>
-        <ion-input type="number" value="" [(ngModel)]="crazyDuration"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label floating>Number of Frames</ion-label>
-        <ion-input type="number" value="" [(ngModel)]="numberOfFrames"></ion-input>
-      </ion-item>
+    <div class="flex-block settings">
+      <div class="inputs">
+        <ion-item>
+          <ion-label floating>Duration (Minutes)</ion-label>
+          <ion-input type="number" value="" [(ngModel)]="crazyDurationMin" (ngModelChange)="crazyDurationMin = convertToNumber($event)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Duration (Seconds)</ion-label>
+          <ion-input type="number" value="" [(ngModel)]="crazyDurationSec" (ngModelChange)="crazyDurationSec = convertToNumber($event)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Start warnings before * seconds to the end</ion-label>
+          <ion-input type="number" value="" [(ngModel)]="warnBeforeSec" (ngModelChange)="warnBeforeSec = convertToNumber($event)"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label floating>Number of Frames</ion-label>
+          <ion-input type="number" value="" [(ngModel)]="numberOfFrames" (ngModelChange)="numberOfFrames = convertToNumber($event)"></ion-input>
+        </ion-item>
+      </div>
       <button ion-button (click)="startClick()">Start Crazy 8-ing</button>
       <button ion-button (click)="resetClick()" outline>Reset</button>
+    </div>
   </ion-content>
-  <ion-content *ngIf="status==STATUSES.IN_PROGRESS">
-      {{timer.stringyTimeRemaining}} {{(currentFrame == numberOfFrames)?"left":"until next frame"}}<br />
-      Frame {{currentFrame}} of {{numberOfFrames}}<br />
+  <ion-content *ngIf="status==STATUSES.IN_PROGRESS" scroll="false">
+    <div class="flex-block timer">
+      <span class="time">{{timer.stringyTimeRemaining}}</span><br />{{(currentFrame == numberOfFrames)?"left":"until next frame"}}<br />
+      Frame {{currentFrame}} / {{numberOfFrames}}<br />
       <button ion-button (click)="stopClick()" outline>Stop</button>
+    </div>
   </ion-content>
-
-
 </ion-content>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Timer } from '../../providers/timer';
 
-export const DEFAULTS = {duration:4, numberOfFrames:8}
+export const DEFAULTS = {durationSec:8, durationMin: 0, numberOfFrames:8, warnBeforeSec: 5}
 export enum STATUSES{
     SETTING = 1,
     IN_PROGRESS = 2
@@ -15,9 +15,10 @@ export enum STATUSES{
 export class HomePage {
   STATUSES=STATUSES
 
-  secondsElapsed:number = 0;
-  crazyDuration:number = DEFAULTS.duration;
+  crazyDurationSec:number = DEFAULTS.durationSec;
+  crazyDurationMin:number = DEFAULTS.durationMin;
   numberOfFrames:number = DEFAULTS.numberOfFrames;
+  warnBeforeSec:number = DEFAULTS.warnBeforeSec
   status:number = STATUSES.SETTING;
 
   currentFrame:number = 1;
@@ -28,35 +29,56 @@ export class HomePage {
             ) {
       this.timer.registerParent(this);
       this.startClick()
-
   }
 
-  timerIsDone(){
-      this.currentFrame += 1;
-      if(this.currentFrame == this.numberOfFrames+1){
-          this.status = STATUSES.SETTING
+  timerIsDone(stopped:boolean){
+      if(!stopped) this.currentFrame += 1;
+      if(this.currentFrame == this.numberOfFrames+1 || stopped){
+          this.resetSession()
       }else{
-          this.timer.start(this.crazyDuration)
+          this.startSession()
       }
   }
 
   startClick(){
       //TODO 3b: convert duration from minutes and seconds to only seconds
-
-      this.status = STATUSES.IN_PROGRESS
-      this.timer.start(this.crazyDuration)
+      this.startSession()
   }
 
   stopClick(){
-      this.timer.stop()
-      this.status = STATUSES.SETTING
+      this.timer.stop(true)
+      this.resetSession()
   }
 
   resetClick(){
-      this.secondsElapsed = 0;
-      this.crazyDuration = DEFAULTS.duration;
-      this.numberOfFrames = DEFAULTS.numberOfFrames;
-      this.status = STATUSES.SETTING;
+      this.resetParams()
+      this.resetSession()
   }
 
+  startSession() {
+    let span = <HTMLElement>document.querySelector("span.time")
+    if(span) span.style.color = "#55ADFF"
+    this.timer.start(this.crazyDurationSec + 60 * this.crazyDurationMin)
+    this.status = STATUSES.IN_PROGRESS
+  }
+
+  resetSession() {
+    this.currentFrame = 1
+    this.status = STATUSES.SETTING;
+  }
+
+  resetParams() {
+    this.crazyDurationSec = DEFAULTS.durationSec;
+    this.crazyDurationMin = DEFAULTS.durationMin;
+    this.numberOfFrames = DEFAULTS.numberOfFrames;
+  }
+
+  warn() {
+    let span = <HTMLElement>document.querySelector("span.time")
+    if(span) span.style.color = "red"
+  }
+
+  // Walkaround for inputs of type number (they actually give strings...)
+
+  public convertToNumber(event):number {  return +event; }
 }
