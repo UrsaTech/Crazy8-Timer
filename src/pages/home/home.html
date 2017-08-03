@@ -20,6 +20,10 @@
           <ion-input type="number" value="" [(ngModel)]="crazyDurationSec" (ngModelChange)="crazyDurationSec = convertToNumber($event)"></ion-input>
         </ion-item>
         <ion-item>
+          <ion-label floating>Start warnings before * seconds to the end</ion-label>
+          <ion-input type="number" value="" [(ngModel)]="warnBeforeSec" (ngModelChange)="warnBeforeSec = convertToNumber($event)"></ion-input>
+        </ion-item>
+        <ion-item>
           <ion-label floating>Number of Frames</ion-label>
           <ion-input type="number" value="" [(ngModel)]="numberOfFrames" (ngModelChange)="numberOfFrames = convertToNumber($event)"></ion-input>
         </ion-item>
