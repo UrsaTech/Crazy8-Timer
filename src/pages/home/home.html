@@ -28,7 +28,7 @@
 
   </ion-content>
   <ion-content *ngIf="status==STATUSES.IN_PROGRESS">
-      {{timer.stringyTimeRemaining}} {{(currentFrame == numberOfFrames)?"left":"until next frame"}}<br />
+      {{timer.stringyTimeRemaining}} {{(currentFrame == numberOfFrames)?"left":"into this frame"}}<br />
       Frame {{currentFrame}} of {{numberOfFrames}}<br />
       <button ion-button (click)="stopClick()" outline>Stop</button>
   </ion-content>

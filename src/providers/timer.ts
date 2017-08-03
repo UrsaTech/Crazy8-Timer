@@ -9,13 +9,12 @@ export class Timer {
   stringyTimeRemaining:string = "0"
   elapsed:number;
   duration:number;
+  duration_min:number;
   remainingSeconds:number;
   obsTimer:any;
   startTime:number;
   private subscription: Subscription;
   parent:any
-
-  test_string = "this is a string";
 
   constructor() {
   }
@@ -82,9 +81,8 @@ export class Timer {
       // regular interval to update the displayed time.
 
       //HINT: https://forum.ionicframework.com/t/ionic2-timer/73960/4
-      
       //starting ticks
-      console.log(duration)
+      console.log("duration" + duration)
       this.start_ticks(duration)
 
   }

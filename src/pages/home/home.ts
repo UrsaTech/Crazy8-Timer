@@ -20,6 +20,7 @@ export class HomePage {
   crazyDuration_min:number = DEFAULTS.duration_min;
   numberOfFrames:number = DEFAULTS.numberOfFrames;
   status:number = STATUSES.SETTING;
+  total_seconds:number = (DEFAULTS.duration_min*60)+DEFAULTS.duration;
 
   currentFrame:number = 1;
 
@@ -30,7 +31,6 @@ export class HomePage {
             ) {
       this.timer.registerParent(this);
       //this.startClick()
-
   }
 
   timerIsDone(){
@@ -38,26 +38,20 @@ export class HomePage {
       if(this.currentFrame == this.numberOfFrames+1){
           this.status = STATUSES.SETTING
       }else{
-          this.timer.start(this.crazyDuration)
+          this.timer.start(this.total_seconds)
       }
   }
 
   startClick(){
       //TODO 3b: convert duration from minutes and seconds to only seconds
-
       this.status = STATUSES.IN_PROGRESS
-      this.timer.start(this.crazyDuration)
-      console.log(this.timer.test_string)
+      this.total_seconds = (this.crazyDuration_min*60)+this.crazyDuration;
+      this.timer.start(this.total_seconds)
   }
 
   stopClick(){
       this.timer.stop()
       this.status = STATUSES.SETTING
-  }
-
-  setIt() {
-    console.log("set it up")
-    this.status = STATUSES.SETTING
   }
 
   resetClick(){
