@@ -60,7 +60,11 @@ export class Timer {
   updateStringy(){
       // This function prints a nicely readable form of the time remaining
       // TODO 2: print minutes and seconds remaining
-      this.stringyTimeRemaining = this.remainingSeconds +" seconds"
+      const minutes = Math.floor(this.remainingSeconds / 60)
+      const seconds = this.remainingSeconds - minutes * 60
+      this.stringyTimeRemaining = ""
+      if(minutes > 0) this.stringyTimeRemaining += `${minutes} minutes`
+      this.stringyTimeRemaining += ` ${seconds} seconds`
   }
 
 
