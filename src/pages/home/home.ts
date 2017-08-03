@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Timer } from '../../providers/timer';
 
-export const DEFAULTS = {duration:4, numberOfFrames:8}
+export const DEFAULTS = {durationSec:8, durationMin: 0, numberOfFrames:8}
 export enum STATUSES{
     SETTING = 1,
     IN_PROGRESS = 2
@@ -15,8 +15,8 @@ export enum STATUSES{
 export class HomePage {
   STATUSES=STATUSES
 
-  secondsElapsed:number = 0;
-  crazyDuration:number = DEFAULTS.duration;
+  crazyDurationSec:number = DEFAULTS.durationSec;
+  crazyDurationMin:number = DEFAULTS.durationMin;
   numberOfFrames:number = DEFAULTS.numberOfFrames;
   status:number = STATUSES.SETTING;
 
@@ -28,7 +28,6 @@ export class HomePage {
             ) {
       this.timer.registerParent(this);
       this.startClick()
-
   }
 
   timerIsDone(stopped:boolean){
@@ -36,16 +35,14 @@ export class HomePage {
       if(this.currentFrame == this.numberOfFrames+1 || stopped){
           this.resetSession()
       }else{
-        console.log(this)
-          this.timer.start(this.crazyDuration)
+          this.timer.start(this.crazyDurationSec + 60 * this.crazyDurationMin)
       }
   }
 
   startClick(){
       //TODO 3b: convert duration from minutes and seconds to only seconds
-
       this.status = STATUSES.IN_PROGRESS
-      this.timer.start(this.crazyDuration)
+      this.timer.start(this.crazyDurationSec + 60 * this.crazyDurationMin)
   }
 
   stopClick(){
@@ -64,7 +61,12 @@ export class HomePage {
   }
 
   resetParams() {
-    this.crazyDuration = DEFAULTS.duration
-    this.numberOfFrames = DEFAULTS.numberOfFrames
+    this.crazyDurationSec = DEFAULTS.durationSec;
+    this.crazyDurationMin = DEFAULTS.durationMin;
+    this.numberOfFrames = DEFAULTS.numberOfFrames;
   }
+
+  // Walkaround for inputs of type number (they actually give strings...)
+
+  public convertToNumber(event):number {  return +event; }
 }
