@@ -33,6 +33,17 @@ export class Timer {
       // regular interval to update the displayed time.
 
       //HINT: https://forum.ionicframework.com/t/ionic2-timer/73960/4
+
+      this.duration = duration
+      this.setRemainingSeconds(duration)
+      this.elapsed = 0
+
+      this.obsTimer = Observable.interval(1000).subscribe(() => {
+        // "this" refers to an instance of Timer since it's an arrow function.
+        this.setRemainingSeconds(this.remainingSeconds - 1)
+        this.elapsed += 1
+        if(this.remainingSeconds <= 0) this.stop()
+      })
   }
 
   stop(){
