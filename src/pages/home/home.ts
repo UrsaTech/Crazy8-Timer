@@ -31,9 +31,9 @@ export class HomePage {
 
   }
 
-  timerIsDone(){
-      this.currentFrame += 1;
-      if(this.currentFrame == this.numberOfFrames+1){
+  timerIsDone(stopped:boolean){
+      if(!stopped) this.currentFrame += 1;
+      if(this.currentFrame == this.numberOfFrames+1 || stopped){
           this.status = STATUSES.SETTING
       }else{
           this.timer.start(this.crazyDuration)

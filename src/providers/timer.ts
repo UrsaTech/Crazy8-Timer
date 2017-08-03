@@ -42,14 +42,14 @@ export class Timer {
         // "this" refers to an instance of Timer since it's an arrow function.
         this.setRemainingSeconds(this.remainingSeconds - 1)
         this.elapsed += 1
-        if(this.remainingSeconds <= 0) this.stop()
+        if(this.remainingSeconds <= 0) this.stop(false)
       })
   }
 
-  stop(){
+  stop(stopped:boolean){
       //OPTIONAL: https://ionicframework.com/docs/native/media/ play a sound
       this.obsTimer.unsubscribe();
-      this.parent.timerIsDone();
+      this.parent.timerIsDone(stopped);
   }
 
   setRemainingSeconds(remaining:number){
@@ -66,6 +66,4 @@ export class Timer {
       if(minutes > 0) this.stringyTimeRemaining += `${minutes} minutes`
       this.stringyTimeRemaining += ` ${seconds} seconds`
   }
-
-
 }
