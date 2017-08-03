@@ -1,3 +1,38 @@
 page-home {
+  .scroll-content {
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: hidden;
+    background-image: linear-gradient(180deg, #12212E 35%, #5e337d 100%);
+  }
 
+  .timer {
+    font-size: 3em;
+
+    span.time {
+      color: #55ADFF;
+    }
+  }
+
+  .toolbar-background {
+    background-color: #0C1925;
+  }
+
+  .toolbar-title {
+    color: #fff;
+  }
+
+  ion-item.item-input {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding-right: 1em;
+    font-size: 1.5em;
+  }
+
+  .inputs, ion-item.item-input:last-child {
+    padding-bottom: 1em;
+  }
 }
