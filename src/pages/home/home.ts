@@ -48,15 +48,22 @@ export class HomePage {
   }
 
   stopClick(){
-      this.timer.stop()
-      this.status = STATUSES.SETTING
+      this.timer.stop(true)
+      this.resetSession()
   }
 
   resetClick(){
-      this.secondsElapsed = 0;
-      this.crazyDuration = DEFAULTS.duration;
-      this.numberOfFrames = DEFAULTS.numberOfFrames;
-      this.status = STATUSES.SETTING;
+      this.resetParams()
+      this.resetSession()
   }
 
+  resetSession() {
+    this.currentFrame = 1
+    this.status = STATUSES.SETTING
+  }
+
+  resetParams() {
+    this.crazyDuration = DEFAULTS.duration
+    this.numberOfFrames = DEFAULTS.numberOfFrames
+  }
 }
