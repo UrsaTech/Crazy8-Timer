@@ -35,7 +35,7 @@ export class HomePage {
 
   timerIsDone(){
       this.currentFrame += 1;
-      if(this.currentFrame == this.numberOfFrames+1){
+      if(this.currentFrame > this.numberOfFrames){
           this.status = STATUSES.SETTING
       }else{
           this.timer.start(this.total_seconds)
@@ -47,6 +47,7 @@ export class HomePage {
       this.status = STATUSES.IN_PROGRESS
       this.total_seconds = (this.crazyDuration_min*60)+this.crazyDuration;
       this.timer.start(this.total_seconds)
+      console.log(this.numberOfFrames)
   }
 
   stopClick(){
