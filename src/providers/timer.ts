@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Rx';
+import { Media, MediaObject } from '@ionic-native/media';
 
 
 @Injectable()
@@ -12,9 +13,13 @@ export class Timer {
   remainingSeconds:number;
   obsTimer:any;
   startTime:number;
-  parent:any
-  constructor() {
+  parent:any;
+  audioMobile:MediaObject;
+  audioWeb:HTMLMediaElement;
 
+  constructor(private media: Media) {
+    this.audioMobile = media.create('../assets/audio/ping.mp3')
+    this.audioWeb = new Audio('../assets/audio/ping.mp3')
   }
 
   registerParent(parent:any){
@@ -48,6 +53,10 @@ export class Timer {
 
   stop(stopped:boolean){
       //OPTIONAL: https://ionicframework.com/docs/native/media/ play a sound
+      this.audioMobile.play(); // For ios/android
+      this.audioWeb.currentTime = 0
+      this.audioWeb.play() // For Web
+
       this.obsTimer.unsubscribe();
       this.parent.timerIsDone(stopped);
   }

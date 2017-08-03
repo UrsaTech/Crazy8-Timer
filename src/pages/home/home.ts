@@ -34,8 +34,9 @@ export class HomePage {
   timerIsDone(stopped:boolean){
       if(!stopped) this.currentFrame += 1;
       if(this.currentFrame == this.numberOfFrames+1 || stopped){
-          this.status = STATUSES.SETTING
+          this.resetSession()
       }else{
+        console.log(this)
           this.timer.start(this.crazyDuration)
       }
   }
@@ -59,7 +60,7 @@ export class HomePage {
 
   resetSession() {
     this.currentFrame = 1
-    this.status = STATUSES.SETTING
+    this.status = STATUSES.SETTING;
   }
 
   resetParams() {
